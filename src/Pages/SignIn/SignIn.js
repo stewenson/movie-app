@@ -1,24 +1,14 @@
-import React, { useCallback, useContext } from "react";
-import { withRouter, Redirect } from "react-router";
-import app from "../../base.js";
+import React, { useContext } from "react";
+import './signIn.scss';
+import { Redirect } from "react-router";
 import { AuthContext } from "../../Auth/Auth";
+import SignInForm from "../../Components/Forms/SignInForm/SignInForm.js";
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import CssBaseline from '@mui/material/CssBaseline';
+import Box from '@mui/material/Box';
 
 const SignIn = ({ history }) => {
-  const handleLogin = useCallback(
-    async event => {
-      event.preventDefault();
-      const { email, password } = event.target.elements;
-      try {
-        await app
-          .auth()
-          .signInWithEmailAndPassword(email.value, password.value);
-        history.push("/");
-      } catch (error) {
-        alert(error);
-      }
-    },
-    [history]
-  );
 
   const { currentUser } = useContext(AuthContext);
 
@@ -27,21 +17,36 @@ const SignIn = ({ history }) => {
   }
 
   return (
-    <div>
-      <h1>Log in</h1>
-      <form onSubmit={handleLogin}>
-        <label>
-          Email
-          <input name="email" type="email" placeholder="Email" />
-        </label>
-        <label>
-          Password
-          <input name="password" type="password" placeholder="Password" />
-        </label>
-        <button type="submit">Log in</button>
-      </form>
+    <div className="login">
+           <div className="top">
+              <div className="wrapper">
+                  <img
+                      className="logo"
+                      src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/2560px-Netflix_2015_logo.svg.png"
+                      alt=""
+                  />
+              </div>
+          </div>
+            <Container component="main" maxWidth="xs">
+            <CssBaseline />
+              <Box
+                sx={{
+                  marginTop: 30,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                }}
+              >
+                <Typography component="h1" variant="h5">
+                  Sign in
+                </Typography>
+
+                  <SignInForm history={history}/>
+
+                </Box>
+              </Container>
     </div>
   );
 };
 
-export default withRouter(SignIn);
+export default SignIn;
