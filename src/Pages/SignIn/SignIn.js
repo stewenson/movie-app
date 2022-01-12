@@ -1,20 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import './signIn.scss';
-import { Redirect } from "react-router";
-import { AuthContext } from "../../Auth/Auth";
 import SignInForm from "../../Components/Forms/SignInForm/SignInForm.js";
-import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 
 const SignIn = ({ history }) => {
-
-  const { currentUser } = useContext(AuthContext);
-
-  if (currentUser) {
-    return <Redirect to="/" />;
-  }
 
   return (
     <div className="login">
@@ -37,10 +28,6 @@ const SignIn = ({ history }) => {
                   alignItems: 'center',
                 }}
               >
-                <Typography component="h1" variant="h5">
-                  Sign in
-                </Typography>
-
                   <SignInForm history={history}/>
 
                 </Box>

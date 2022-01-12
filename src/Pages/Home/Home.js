@@ -1,12 +1,21 @@
 import React from 'react'
-import { getAuth, signOut } from "firebase/auth";
+import { connect } from 'react-redux';
+import SignIn from '../SignIn/SignIn';
 
-export default function Home() {
-    const auth = getAuth();
+const Home = (props) => {
+
+
     return (
         <div>
-            <h1>Home</h1>
-            <button onClick={()=> signOut(auth)}>Sign Out</button>
+           <SignIn />
         </div>
-    )
-}
+    );
+};
+
+const mapStateToProps = (state) => {
+    return {
+        authUser: state.auth.authUser
+    };
+};
+
+export default connect(mapStateToProps)(Home);
