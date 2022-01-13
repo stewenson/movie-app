@@ -1,10 +1,29 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { 
+    getUpcommingMovies, 
+    getTopRatedMovies,
+    getPopularMovies } from '../../Redux/Actions/MovieActions/movieActions';
+import requests from '../../API/requests';
 
 const Movies = (props) => {
+    //const [movies, setMovies] = useState([])
 
-    console.log(props)
+    useEffect(() => {
+       props.getUpcommingMovies(requests.getUpcomingMovies);
+       props.getTopRatedMovies(requests.getTopRatedMovies);
+       props.getPopularMovies(requests.getPopularMovies)
+    }, [])
+
+    // upcomming movies
+   console.log(props.upcomming, "upcomming");
+
+    // top rated movies
+    console.log(props.topRated, "top rated");
+
+    // top rated movies
+    console.log(props.popular.results, "popular");
 
     if (!props.authUser) {
         return (<Redirect to={{
@@ -23,7 +42,20 @@ const Movies = (props) => {
 };
 
 const mapStateToProps = (state) => {
-    return { authUser: state.auth.authUser };
+    return { 
+        authUser: state.auth.authUser,
+        upcomming: state.movie.upcommingMovies,
+        topRated: state.movie.topRatedMovies,
+        popular: state.movie.popularMovies
+    };
 }
 
-export default connect(mapStateToProps)(Movies);
+const mapDispatchToProps = dispatch => {
+    return {
+        getUpcommingMovies: (url) => dispatch(getUpcommingMovies(url)),
+        getTopRatedMovies: (url) => dispatch(getTopRatedMovies(url)),
+        getPopularMovies: (url) => dispatch(getPopularMovies(url))
+    };
+  }
+  
+export default connect(mapStateToProps, mapDispatchToProps)(Movies);
