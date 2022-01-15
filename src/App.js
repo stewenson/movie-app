@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "./App.css";
+import "./App.scss";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./Pages/Home/Home";
 import SignIn from "./Pages/SignIn/SignIn";
@@ -13,6 +13,8 @@ import Navigation from "./Components/Navigation/Navigation";
 
 const App = (props) => {
 
+  console.log(props.authUser)
+
   useEffect(() => {
     // subscribe to the auth observer
     const unsubscribe = props.authObserver();
@@ -23,9 +25,9 @@ const App = (props) => {
   return (
     <AuthProvider>
       <Router>
-      <Navigation />
+        {props.authUser ? <Navigation /> : ""}
         <Switch>
-        < Route exact path="/" component={Home} />
+        < PrivateRoute exact path="/" component={Home} />
           <Route exact path="/register" component={SignUp} />
           <Route exact path="/login" component={SignIn} />
           <PrivateRoute exact path="/movies" component={Movies} />
@@ -35,36 +37,19 @@ const App = (props) => {
   );
 };
 
+const mapStateToProps = (state) => {
+  return {
+      authUser: state.auth.authUser
+  };
+};
+
+
 const mapDispatchToProps = dispatch => {
   return {
     authObserver: () => dispatch(authObserver())
   };
 }
 
-export default connect(null, mapDispatchToProps)(App);
-/*
-import React from "react";
-import "./App.css";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import Home from "./Pages/Home/Home";
-import SignIn from "./Pages/SignIn/SignIn";
-import SignUp from "./Pages/SignUp/SignUp";
-import { AuthProvider } from "./Auth/Auth";
-import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 
-const App = () => {
-  return (
-    <AuthProvider>
-      <Router>
-        <div>
-          <PrivateRoute exact path="/" component={Home} />
-          <Route exact path="/register" component={SignUp} />
-          <Route exact path="/login" component={SignIn} />
-        </div>
-      </Router>
-    </AuthProvider>
-  );
-};
-
-export default App;
-*/
+//<Navigation />

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useFormik } from 'formik';
 //import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { signUpAction } from '../../../Redux/Actions/AuthActions/authActions';
@@ -49,7 +49,7 @@ const SignUpForm = (props) => {
 
     if (authUser) {
       return (<Redirect to={{
-          pathname: "/movies",
+          pathname: "/",
           state: { from: props.location }
       }} />);
   }
@@ -57,50 +57,40 @@ const SignUpForm = (props) => {
 
 
     return (
-        <form onSubmit={formik.handleSubmit} className="input">
-            <h1>Sign Up</h1>
-                <span>{formik.errors.name ? <div>{formik.errors.name}</div>: null}</span>
-                <input 
-                    id="name"
-                    name="name"
-                    type="name"
-                    placeholder="Enter name"
-                    onChange={formik.handleChange}
-                    value={formik.values.name}
-                  />
-                  <span>{formik.errors.password ? <div>{formik.errors.password}</div>: null}</span>
-                <input 
-                    id="email"
-                    name="email"
-                    type="email"
-                    placeholder="Enter email"
-                    onChange={formik.handleChange}
-                    value={formik.values.email}
-                  />
-                  <span>{formik.errors.password ? <div>{formik.errors.password}</div>: null}</span>
-                  <input 
-                    id="password"
-                    name="password"
-                    type="password"
-                    placeholder="Enter password"
-                    onChange={formik.handleChange}
-                    value={formik.values.password}
-                  />
-                  <button 
-                    type="submit" 
-                    className="loginButton"
-                    >Sign In
-                  </button>
-
-                  <span>
-                     Already registrated? <b>Sign up now.</b>
-                  </span>
-
-                  <small>
-                      This page is protected by Google reCAPTCHA to ensure you're not a
-                      bot. <b>Learn more</b>.
-                  </small>
-              </form>
+      <form onSubmit={formik.handleSubmit}>
+        <input 
+        id="name"
+        name="name"
+        type="name"
+        placeholder="Enter name"
+        onChange={formik.handleChange}
+        value={formik.values.name}
+      />
+      <span>{formik.errors.name ? <div>{formik.errors.name}</div>: null}</span>
+      <input 
+        id="email"
+        name="email"
+        type="email"
+        placeholder="Enter email"
+        onChange={formik.handleChange}
+        value={formik.values.email}
+      />
+      <span>{formik.errors.email ? <div>{formik.errors.email}</div>: null}</span>
+      <input 
+        id="password"
+        name="password"
+        type="password"
+        placeholder="Enter password"
+        onChange={formik.handleChange}
+        value={formik.values.password}
+      />
+      <span>{formik.errors.email ? <div>{formik.errors.email}</div>: null}</span>
+      <button 
+        type="submit" 
+        className="loginButton"
+        >Sign In
+      </button>
+    </form>
     )
 }
 const mapStateToProps = (state) => {

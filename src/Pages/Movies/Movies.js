@@ -7,15 +7,15 @@ import {
     getPopularMovies } from '../../Redux/Actions/MovieActions/movieActions';
 import requests from '../../API/requests';
 
+
 const Movies = (props) => {
-    //const [movies, setMovies] = useState([])
 
     useEffect(() => {
        props.getUpcommingMovies(requests.getUpcomingMovies);
        props.getTopRatedMovies(requests.getTopRatedMovies);
        props.getPopularMovies(requests.getPopularMovies)
     }, [])
-
+/*
     // upcomming movies
    console.log(props.upcomming, "upcomming");
 
@@ -24,7 +24,7 @@ const Movies = (props) => {
 
     // top rated movies
     console.log(props.popular.results, "popular");
-
+*/
     if (!props.authUser) {
         return (<Redirect to={{
             pathname: "/",
@@ -33,10 +33,147 @@ const Movies = (props) => {
     }
     
     return (
-        <div>
+        <div className='home'>
             <h1>Dashboard</h1>
             <h2>Name: {props.authUser.displayName}</h2>
             <h2>Email: {props.authUser.email}</h2>
+            <p>
+                lorem
+                lorem
+            </p>
+            <p>
+                lorem
+                lorem
+            </p>
+            <p>
+                lorem
+                lorem
+            </p>
+            <p>
+                lorem
+                lorem
+            </p>
+            <p>
+                lorem
+                lorem
+            </p>
+            <p>
+                lorem
+                lorem
+            </p>
+            <p>
+                lorem
+                lorem
+            </p>
+            <p>
+                lorem
+                lorem
+            </p>
+            <p>
+                lorem
+                lorem
+            </p>
+            <p>
+                lorem
+                lorem
+            </p>
+            <p>
+                lorem
+                lorem
+            </p>
+            <p>
+                lorem
+                lorem
+            </p>
+            <p>
+                lorem
+                lorem
+            </p>
+            <p>
+                lorem
+                lorem
+            </p>
+            <p>
+                lorem
+                lorem
+            </p>
+            <p>
+                lorem
+                lorem
+            </p>
+            <p>
+                lorem
+                lorem
+            </p>
+            <p>
+                lorem
+                lorem
+            </p>
+            <p>
+                lorem
+                lorem
+            </p>
+            <p>
+                lorem
+                lorem
+            </p>
+            <p>
+                lorem
+                lorem
+            </p>
+            <p>
+                lorem
+                lorem
+            </p>
+            <p>
+                lorem
+                lorem
+            </p>
+            <p>
+                lorem
+                lorem
+            </p>
+            <p>
+                lorem
+                lorem
+            </p>
+            <p>
+                lorem
+                lorem
+            </p>
+            <p>
+                lorem
+                lorem
+            </p>
+            <p>
+                lorem
+                lorem
+            </p>
+            <p>
+                lorem
+                lorem
+            </p>
+            <p>
+                lorem
+                lorem
+            </p>
+            <p>
+                lorem
+                lorem
+            </p>
+            <p>
+                lorem
+                lorem
+            </p>
+            <p>
+                lorem
+                lorem
+            </p>
+            <p>
+                lorem
+                lorem
+            </p>
+            
         </div>
     );
 };
