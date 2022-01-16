@@ -4,6 +4,8 @@ const INITIAL_STATE = {
     upcomingMovies: [],
     topRatedMovies: [],
     popularMovies: [],
+    latestMovie: [],
+    random: [],
     error: ""
 };
 
@@ -18,12 +20,18 @@ const moviesReducer = (state = INITIAL_STATE, action) => {
         case MovieActionTypes.GET_TOP_RATED_MOVIES:
             return {
                 ...state,
-                topRatedMovies: action.payload
+                topRatedMovies: action.payload,
+                random: action.random
             };
         case MovieActionTypes.GET_POPULAR_MOVIES:
             return {
                 ...state,
                 popularMovies: action.payload
+            };
+        case MovieActionTypes.GET_LATEST_MOVIE:
+            return {
+                ...state,
+                latestMovie: action.payload
             };
         default:
             return state;

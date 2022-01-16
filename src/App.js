@@ -13,8 +13,6 @@ import Navigation from "./Components/Navigation/Navigation";
 
 const App = (props) => {
 
-  console.log(props.authUser)
-
   useEffect(() => {
     // subscribe to the auth observer
     const unsubscribe = props.authObserver();

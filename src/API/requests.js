@@ -5,6 +5,8 @@ const requests = {
     getUpcomingMovies: `/movie/upcoming?api_key=${API_KEY}&language=en-US&page=1`,
     getTopRatedMovies: `/movie/top_rated?api_key=${API_KEY}&language=en-US&page=1`,
     getPopularMovies: `/movie/popular?api_key=${API_KEY}&language=en-US&page=1`,
+    getLatestMovie: `/movie/latest?api_key=${API_KEY}&language=en-US`,
+
     //getSimilarMovies
     //getRecommendations
     //getDetailMovie
