@@ -4,7 +4,7 @@ import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./Pages/Home/Home";
 import SignIn from "./Pages/SignIn/SignIn";
 import SignUp from "./Pages/SignUp/SignUp";
-import Movies from "./Pages/Movies/Movies";
+import {Movies} from "./Pages/Movies/Movies";
 import { AuthProvider } from "./Auth/Auth";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 import { authObserver  } from "./Redux/Actions/AuthActions/authActions";

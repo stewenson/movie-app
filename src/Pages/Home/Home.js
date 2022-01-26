@@ -5,62 +5,45 @@ import {
     getUpcommingMovies, 
     getTopRatedMovies,
     getPopularMovies,
-    getLatestMovie } from '../../Redux/Actions/MovieActions/movieActions';
+    getLatestMovie,
+    getNetflisOriginals } from '../../Redux/Actions/MovieActions/movieActions';
 import requests from '../../API/requests';
 import { Row } from '../../Components/Row/Row';
-
+import Banner from '../../Components/Banner/Banner';
 
 const Home = (props) => {
 
+
     useEffect(() => {
-        props.getUpcommingMovies(requests.getUpcomingMovies);
-        props.getTopRatedMovies(requests.getTopRatedMovies);
-        props.getPopularMovies(requests.getPopularMovies);
-        props.getLatestMovie(requests.getLatestMovie);
+        const actions = async() => {
+            try {
+                await props.getUpcommingMovies(requests.getUpcomingMovies);
+                await props.getNetflisOriginals(requests.getNetflixOriginals);
+                await props.getTopRatedMovies(requests.getTopRatedMovies);
+                await props.getPopularMovies(requests.getPopularMovies);
+                await props.getLatestMovie(requests.getLatestMovie);
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        
+        actions();
      }, [])
 
-     let imageURL;
-     if (props.random.backdrop_path)
-          imageURL = `http://image.tmdb.org/t/p/original` + props.random.backdrop_path;
-
-
-    function truncate(str, n) {
-        return str?.length > n ? str.substr(0, n-1) + "..." :str;
-    }  
 
     return (
         <React.Fragment>
-            <header className='banner'
-                style={{
-                    backgroundSize: "cover",
-                    backgroundImage: imageURL ? 
-                    `linear-gradient(to right, rgba(10, 10, 10, 0.8)
-                    10%,
-                    rgba(100, 100, 100, 0.2)),
-                    url(${imageURL})` : '' }}
-                >
+          
+            <Banner data={props.random}/>
             
-                <div className='banner_contents'>
-                    {/* title */}
-                    <h1 className='banner_title'>
-                        {props.random?.title || props.random.original_title}
-                    </h1>
-                    {/* buttons */}
-                    <div className='banner_buttons'>
-                        <button className='banner_button'>Play</button>
-                        <button className='banner_button'>More</button>
-                    </div>
-                    {/* description */}
-                    <h2 className='banner_description'>
-                        {truncate(props.random?.overview, 250)}
-                    </h2>
-                </div>
-            </header>
-            {/* Top Rated Movies */}
+             {/* Top Rated Movies */}
+            <Row title={"Netflix originals"} lists={props.netflixOriginals.results} isLarge/>
+            
+             {/* Top Rated Movies */}
             <Row title={"Top rated movies"} lists={props.topRated.results} isLarge/>
           
-            {/* Top Rated Movies */}
-            <Row title={"Top rated movies"} lists={props.popular.results}/>
+            {/* Popular Movies */}
+            <Row title={"Popular movies"} lists={props.popular.results}/>
         </React.Fragment>
         
     );
@@ -69,6 +52,7 @@ const Home = (props) => {
 const mapStateToProps = (state) => {
     return { 
         authUser: state.auth.authUser,
+        netflixOriginals: state.movie.netflixOriginals,
         upcomming: state.movie.upcommingMovies,
         topRated: state.movie.topRatedMovies,
         random: state.movie.random,
@@ -80,6 +64,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => {
     return {
         getUpcommingMovies: (url) => dispatch(getUpcommingMovies(url)),
+        getNetflisOriginals: (url) => dispatch(getNetflisOriginals(url)),
         getTopRatedMovies: (url) => dispatch(getTopRatedMovies(url)),
         getPopularMovies: (url) => dispatch(getPopularMovies(url)),
         getLatestMovie: (url) => dispatch(getLatestMovie(url))

@@ -3,6 +3,24 @@ import * as MovieActionTypes from '../../ActionTypes/moviesActionTypes';
 
 
 
+// Get Netflix original
+export const getNetflisOriginals = (url) => {
+    return async dispatch => {
+        await axios.get(url)
+            .then(res =>
+                dispatch({
+                    type: MovieActionTypes.GET_NETFLIX_ORIGINALS,
+                    payload: res.data
+                })
+            ).catch(error => {
+                dispatch({
+                    type: MovieActionTypes.GET_NETFLIX_ORIGINALS_ERROR,
+                    error: error
+                })
+            })
+    }
+};
+
 // Get upcomming movies
 export const getUpcommingMovies = (url) => {
     return async dispatch => {
@@ -57,6 +75,8 @@ export const getPopularMovies = (url) => {
             })
     }
 };
+
+// Get Latest movie
 export const getLatestMovie = (url) => {
     return async dispatch => {
         await axios.get(url)

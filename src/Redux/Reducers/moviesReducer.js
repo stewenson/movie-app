@@ -1,6 +1,7 @@
 import * as MovieActionTypes from '../ActionTypes/moviesActionTypes';
 
 const INITIAL_STATE = {
+    netflixOriginals: [],
     upcomingMovies: [],
     topRatedMovies: [],
     popularMovies: [],
@@ -12,6 +13,11 @@ const INITIAL_STATE = {
 const moviesReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         // Movies actions
+        case MovieActionTypes.GET_NETFLIX_ORIGINALS:
+            return {
+                ...state,
+                netflixOriginals: action.payload
+            };
         case MovieActionTypes.GET_UPCOMMING_MOVIES:
             return {
                 ...state,
